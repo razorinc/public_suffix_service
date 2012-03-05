@@ -181,6 +181,7 @@ module PublicSuffix
     #
     # @return [PublicSuffix::Rule::*, nil]
     def find(domain)
+      return if domain.include?("://")
       rules = select(domain)
       rules.select { |r|   r.type == :exception }.first ||
       rules.inject { |t,r| t.length > r.length ? t : r }
